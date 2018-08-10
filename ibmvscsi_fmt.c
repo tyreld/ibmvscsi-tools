@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <pci/types.h>
 #include <errno.h>
 #include <asm/byteorder.h>
@@ -208,7 +209,7 @@ int main (int argc, char *argv[])
 
 		fprintf(stdout, "%016llX ", (trace[i].evt));
 
-		fprintf(stdout, "%016llX %lu %s %016llX ",
+		fprintf(stdout, "%016llX %llu %s %016llX ",
 			trace[i].mftb, trace[i].time, fmt[trace[i].fmt], trace[i].tag);
 
 		if (trace[i].fmt == VIOSRP_MAD_FORMAT)
