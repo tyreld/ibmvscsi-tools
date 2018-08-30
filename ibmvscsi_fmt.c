@@ -76,28 +76,29 @@ const char *task_func [255] = {
 };
 
 struct ibmvscsi_trace_start_entry {
-	u8 scsi_opcode;
+	u64 task_tag;
 	u32 scsi_lun;
 	u32 xfer_len;
+	u8 scsi_opcode;
 	u8 task_func;
-	u64 task_tag;
 }__attribute__((packed));
 
 struct ibmvscsi_trace_end_entry {
 	u32 cmnd_result;
+	u32 reason;
 	u8 status;
 	u8 flags;
-	u32 reason;
 }__attribute__((packed));
 
 struct ibmvscsi_trace_entry {
 	u64 evt;
 	u64 mftb;
 	u64 time;
+	u64 tag;
 	u32 fmt;
 	u8 op_code;
-	u64 tag;
 	u8 type;
+	u8 reserved1[2];
 #define IBMVSCSI_TRC_START	0x00
 #define IBMVSCSI_TRC_DUP	0x08
 #define IBMVSCSI_TRC_END	0xff
@@ -105,7 +106,7 @@ struct ibmvscsi_trace_entry {
 		struct ibmvscsi_trace_start_entry start;
 		struct ibmvscsi_trace_end_entry end;
 	};
-	u8 reserved[4];
+	u8 reserved2[6];
 	char srp_data[64];
 }__attribute__((packed, aligned (8)));
 
